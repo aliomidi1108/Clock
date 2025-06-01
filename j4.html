@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Responsive RGB Clock</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Orbitron&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        background-color: black;
+        margin: 0;
+        padding: 0;
+        height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .text {
+        display: block;
+        text-align: center;
+        color: aliceblue;
+        margin-top: 1rem;
+        font-family: sans-serif;
+      }
+
+      .i .clock-container {
+        position: relative;
+        padding: 1.5rem;
+        border-radius: 20px;
+      }
+
+      .clock-container::before {
+        content: "";
+        position: absolute;
+        top: 6px;
+        left: 6px;
+        right: 6px;
+        bottom: 6px;
+        background: linear-gradient(
+          45deg,
+          red,
+          orange,
+          yellow,
+          green,
+          cyan,
+          blue,
+          indigo,
+          violet,
+          pink,
+          red,
+          orange,
+          yellow,
+          green,
+          cyan,
+          blue,
+          red
+        );
+        background-size: 1000% 1000%;
+        border-radius: 24px;
+        z-index: -1;
+        animation: rgbBorder 20s linear infinite;
+      }
+
+      .clock {
+        font-family: "Orbitron", sans-serif;
+        font-size: 8vw;
+        color: white;
+        background-color: #111;
+        border-radius: 14px;
+        padding: 1rem 2rem;
+        text-align: center;
+        min-width: 250px;
+        max-width: 90vw;
+        white-space: nowrap;
+      }
+      .p {
+        color: aliceblue;
+      }
+
+      @keyframes rgbBorder {
+        0% {
+          background-position: 0% 50%;
+        }
+        100% {
+          background-position: 100% 50%;
+        }
+      }
+
+      @media (min-width: 768px) {
+        .clock {
+          font-size: 4vw;
+        }
+      }
+
+      @media (min-width: 1200px) {
+        .clock {
+          font-size: 3vw;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="clock-container">
+      <div id="MyClockDisplay" class="clock"></div>
+      <br class="i" />
+      <span class="text"> ** Design by Aliomidi ** </span>
+    </div>
+
+    <script>
+      function showTime() {
+        const date = new Date();
+        let h = date.getHours();
+        let m = date.getMinutes();
+        let s = date.getSeconds();
+        let session = "AM";
+
+        if (h === 0) h = 12;
+        if (h > 12) {
+          h = h - 12;
+          session = "PM";
+        }
+
+        h = h < 10 ? "0" + h : h;
+        m = m < 10 ? "0" + m : m;
+        s = s < 10 ? "0" + s : s;
+
+        const time = `${h}:${m}:${s} ${session}`;
+        document.getElementById("MyClockDisplay").textContent = time;
+
+        setTimeout(showTime, 1000);
+      }
+
+      showTime();
+    </script>
+  </body>
+</html>
